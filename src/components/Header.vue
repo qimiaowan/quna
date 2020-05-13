@@ -11,7 +11,7 @@
         <input type="search" class="input_search">
       </div>
       <div class="header_pos">
-        城 3
+        城市
         <span class="iconfont">&#xe6aa;</span>
       </div>
   </div>
@@ -23,12 +23,13 @@ export default {
 }
 </script>
 <style scoped lang="stylus">
+  @import '../assets/common.styl'
   .header{
     display flex
     width 100%
     height .88rem
     color #fff
-    background #00bcd4
+    background $bgColor
   }
   .header_left{
     width .8rem
