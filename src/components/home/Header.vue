@@ -11,8 +11,10 @@
         <input type="search" class="input_search">
       </div>
       <div class="header_pos">
-        城
-        <span class="iconfont">&#xe6aa;</span>
+        <router-link to="/city">
+          {{homeCity}}
+          <span class="iconfont">&#xe6aa;</span>
+        </router-link>
       </div>
   </div>
 </template>
@@ -20,10 +22,13 @@
 <script>
 export default {
   name: 'Header',
+  props:{
+    "homeCity":String
+  }
 }
 </script>
 <style scoped lang="stylus">
-  @import '../assets/common.styl'
+  @import '../../assets/common.styl'
   .header{
     display flex
     width 100%
@@ -70,6 +75,9 @@ export default {
     height .88rem
     line-height .88rem
     text-align center
+  }
+  .header_pos a{
+    color #fff
   }
 
 
