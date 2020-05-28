@@ -7,6 +7,7 @@
 					<li v-for="item in computedCities"
 							:key="item.id"
 							:class="item.borderType"
+							@click="handelCityClick(item.name)"
                     >
 						{{ item.name }}
 					</li>
@@ -24,6 +25,7 @@
 					<li
 						v-for="innerItem in item"
 						:key="innerItem.id"
+						@click="handelCityClick(innerItem.name)"
 						>
 						{{ innerItem.name }}
 					</li>
@@ -34,6 +36,7 @@
 </template>
 <script>
     import BScroll from 'better-scroll'
+import { mapMutations } from 'vuex'
 
     export default {
         name:"listCity",
@@ -51,38 +54,47 @@
 				click:true
 			})
 		},
-        computed:{
-            computedCities(){
-				var arr = [];
-                for(var i = 0;i<this.hotCities.length;i++ ){
-                    var item = this.hotCities[i];
-                    var resObj = {};
-                        resObj.name = this.hotCities[i].name;
-                        resObj.id = this.hotCities[i].id;
+		computed:{
+					computedCities(){
+			var arr = [];
+							for(var i = 0;i<this.hotCities.length;i++ ){
+									var item = this.hotCities[i];
+									var resObj = {};
+											resObj.name = this.hotCities[i].name;
+											resObj.id = this.hotCities[i].id;
 
-                    if (item.order === 1) {
-					resObj.borderType = '';
-                    } else if (item.order === 2 || item.order === 3) {
-                        resObj.borderType = 'border-left';
-                    } else if (item.order % 3 === 1) {
-                        resObj.borderType = 'border-top';
-                    } else {
-                        resObj.borderType = 'border-topleft';
-                    }
-                    arr.push(resObj);
-                }
+									if (item.order === 1) {
+				resObj.borderType = '';
+									} else if (item.order === 2 || item.order === 3) {
+											resObj.borderType = 'border-left';
+									} else if (item.order % 3 === 1) {
+											resObj.borderType = 'border-top';
+									} else {
+											resObj.borderType = 'border-topleft';
+									}
+									arr.push(resObj);
+							}
 
 
-                return arr;
-			},
-			letters(){
-				return Array.from(Object.keys(this.cities));
-			}
+							return arr;
 		},
+		letters(){
+			return Array.from(Object.keys(this.cities));
+		}
+	},
 		methods:{
 			clickHrefFun(item){
 				this.letter = item
-			}
+			},
+			handelCityClick(item){
+				// this.$store.dispatch('changeCityName',item)
+				this.aa(item)
+				this.$router.push("/")
+				localStorage.setItem("city",item);
+			},
+			...mapMutations({
+				aa:"changeCityName"
+			})
 		},
 		watch:{
 			letter(){

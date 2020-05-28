@@ -8,11 +8,12 @@
            <span class="iconfont icon_search">&#xe698;</span>
            <span class="search_txt">旅游什么的</span>
          </div>
-        <input type="search" class="input_search">
+        <input type="search" class="input_search" disabled>
       </div>
       <div class="header_pos">
         <router-link to="/city">
-          {{homeCity}}
+          <!-- {{this.$store.state.city}} -->
+          {{this.city}}
           <span class="iconfont">&#xe6aa;</span>
         </router-link>
       </div>
@@ -20,10 +21,16 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'Header',
-  props:{
-    "homeCity":String
+  // props:{
+  //   "homeCity":String
+  // }
+  computed:{
+    ...mapState([
+      "city"
+    ])
   }
 }
 </script>
@@ -53,6 +60,7 @@ export default {
     width 100%
     height .55rem
     border-radius .06rem
+    background #fff
   }
   .kw{
     position absolute;
@@ -71,9 +79,10 @@ export default {
   }
 
   .header_pos{
-    width 1.3rem
+    min-width 1rem
     height .88rem
     line-height .88rem
+    padding 0 .1rem
     text-align center
   }
   .header_pos a{
