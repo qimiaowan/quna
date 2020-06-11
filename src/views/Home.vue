@@ -15,6 +15,7 @@ import Banner from '@/components/home/Banner.vue'
 import Icons from '@/components/home/Icons.vue'
 import Recommend from '@/components/home/Recommend.vue'
 
+import {mapState} from 'vuex'
 
 export default {
   name: 'Home',
@@ -29,22 +30,27 @@ export default {
       // "city":"",
       "swiperList":[],
       "iconsList":[],
-      "recommendList":[]
+      "recommendList":[],
+      "lastCity":""
     }
   },
   created(){
     // this.$store.dispatch('changeCityName',localStorage.getItem("city"))
     this.$store.commit("changeCityName",localStorage.getItem("city"))
+    this.lastCity = this.city;
+  },
+  computed:{
+    ...mapState([
+      "city"
+    ])
   },
   mounted(){
-    this.getListFun().then(()=>{
-      console.log(this.swiperList);
 
-    })
+    this.getListFun()
   },
   methods:{
     getListFun(){
-      return this.axios.get(`${process.env.BASE_URL}mock/index.json`).then(this.getHomeInfoSuccess)
+      return this.axios.get(`${process.env.BASE_URL}mock/index.json?city=`+this.city).then(this.getHomeInfoSuccess)
     },
     getHomeInfoSuccess(res){
       var data = res.data&&res.data.data;
@@ -54,6 +60,18 @@ export default {
       this.iconsList = data.iconsList;
       this.recommendList = data.recommendList;
     }
+  },
+  activated(){
+
+
+    if(this.lastCity!=this.city){
+      this.getListFun()
+    }
+    console.log("activated");
+  },
+  deactivated(){
+    console.log("deactivated");
+
   }
 }
 </script>

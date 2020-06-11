@@ -8,12 +8,17 @@ Vue.use(VueRouter)
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
   },
   {
     path: '/city',
     name: 'city',
     component: () => import(/* webpackChunkName: "city" */ '../views/city.vue')
+  },
+  {
+    path: '/detail/:id',
+    name: 'detail',
+    component: () => import(/* webpackChunkName: "detail" */ '../views/detail.vue'),
   }
 ]
 

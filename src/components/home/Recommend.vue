@@ -5,7 +5,7 @@
         </div>
         <div class="recommend_list">
             <ul>
-                <router-link v-for="item in this.recommendList" :key="item.id" tag="li" to="de" class="list_item">
+                <router-link v-for="item in this.recommendList" :key="item.id" tag="li" :to="'detail/'+item.id" class="list_item">
                     <div class="item_wrap">
                         <div class="item_img">
                         <img :src="item.imgUrl" alt="">
